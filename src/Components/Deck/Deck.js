@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Deck = () => {
+  // will need to receive props for deck size, description, title and deck id
+  // pass delete handler to the delete button
+  // Link study to the study url and view to the view url
+
   return (
     <div className="card">
       <div className="card-body">
