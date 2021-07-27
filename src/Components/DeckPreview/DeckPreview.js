@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { listCards } from '../../utils/api/index';
 
-const Deck = () => {
+const DeckPreview = ({ name, description, deckId }) => {
   // will need to receive props for deck size, description, title and deck id
   // pass delete handler to the delete button
   // Link study to the study url and view to the view url
-
+  const [numberOfCards, setNumberOfCards] = useState(0);
+  useEffect(() => {
+    async function cards() {
+      const cards = await listCards(deckId);
+      setNumberOfCards(cards.length);
+    }
+    cards();
+  }, [deckId]);
   return (
-    <div className="card">
+    <li className="card" key={deckId}>
       <div className="card-body">
         <div className="d-flex flex-row justify-content-between">
-          <h4 className="card-title">Deck Title</h4>
-          <h6 className="card-subtitle text-muted">3 cards</h6>
+          <h4 className="card-title">{name}</h4>
+          <h6 className="card-subtitle text-muted">
+            {numberOfCards} {numberOfCards === 1 ? 'card' : 'cards'}
+          </h6>
         </div>
-        <p className="card-text">Deck Description</p>
+        <p className="card-text">{description}</p>
         <div className="float-left">
           <Link className="btn-lg btn-secondary m-1">
             <i className="bi bi-eye" />
@@ -28,8 +38,8 @@ const Deck = () => {
           <i className="bi bi-trash" />
         </Link>
       </div>
-    </div>
+    </li>
   );
 };
 
-export default Deck;
+export default DeckPreview;
