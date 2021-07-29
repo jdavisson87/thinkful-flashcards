@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listCards } from '../../utils/api/index';
 
-const DeckPreview = ({ name, description, deckId }) => {
+const DeckPreview = ({ name, description, deckId, onDelete }) => {
   // will need to receive props for deck size, description, title and deck id
   // pass delete handler to the delete button
   // Link study to the study url and view to the view url
@@ -34,9 +34,12 @@ const DeckPreview = ({ name, description, deckId }) => {
             {` `}Study
           </Link>
         </div>
-        <Link className="btn-lg btn-danger float-right">
+        <button
+          onClick={() => onDelete(deckId)}
+          className="btn-lg btn-danger float-right"
+        >
           <i className="bi bi-trash" />
-        </Link>
+        </button>
       </div>
     </li>
   );

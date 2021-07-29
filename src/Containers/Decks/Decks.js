@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import DeckPreview from '../../Components/DeckPreview/DeckPreview';
-import { listDecks } from '../../utils/api/index';
+import { listDecks, deleteDeck } from '../../utils/api/index';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
+  const history = useHistory();
   // needs to get deck information
   useEffect(() => {
     async function getDecks() {
@@ -13,9 +14,16 @@ const Decks = () => {
     }
     getDecks();
   }, []);
-  // if no decks, show message stating "There are no decks, how about creating one?"
-  // create variable that maps the decks and outputs the Deck component, passing in the necessary props
+
   // need a delete handler for all deck components
+  const deleteHandler = (id) => {
+    if (window.confirm('Delete this deck?')) {
+      deleteDeck(id);
+      setDecks((current) => current.filter((deck) => deck.id !== id));
+      history.push('/');
+    }
+  };
+
   let content =
     decks.length > 0 ? (
       decks.map((deck) => (
@@ -23,6 +31,7 @@ const Decks = () => {
           name={deck.name}
           description={deck.description}
           deckId={deck.id}
+          onDelete={deleteHandler}
           key={`${deck.name}${deck.id}`}
         />
       ))
