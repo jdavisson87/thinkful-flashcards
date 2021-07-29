@@ -31,8 +31,6 @@ const Decks = () => {
     );
   return (
     <div>
-      <p>Deck Screen </p>
-
       <Link to={`/decks/new`} className="btn btn-secondary">
         <i className="bi bi-plus-lg"></i> {` `}Create Deck
       </Link>
