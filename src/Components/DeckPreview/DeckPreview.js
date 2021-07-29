@@ -25,7 +25,7 @@ const DeckPreview = ({ name, description, deckId, onDelete }) => {
         </div>
         <p className="card-text">{description}</p>
         <div className="float-left">
-          <Link className="btn-lg btn-secondary m-1">
+          <Link to={`/decks/${deckId}`} className="btn-lg btn-secondary m-1">
             <i className="bi bi-eye" />
             {` `}View
           </Link>

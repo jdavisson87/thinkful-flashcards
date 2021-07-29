@@ -1,8 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import CreateDeckForm from '../../Forms/CreateDeckForm';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { readDeck } from '../../utils/api/index';
 
-const CreateDeck = () => {
+const Deck = () => {
+  const { deckId } = useParams();
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    async function getCards() {
+      const { cards } = await readDeck(deckId);
+      console.log(cards);
+    }
+    getCards();
+  }, []);
+
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -18,13 +29,13 @@ const CreateDeck = () => {
             aria-current="page"
             key="create-deck-link"
           >
-            Create Deck
+            This will be the deck title
           </li>
         </ol>
       </nav>
-      <CreateDeckForm />
+      <p>Deck Page</p>
     </div>
   );
 };
 
-export default CreateDeck;
+export default Deck;
