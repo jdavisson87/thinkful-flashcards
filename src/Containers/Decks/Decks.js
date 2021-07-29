@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import DeckPreview from '../../Components/DeckPreview/DeckPreview';
-import { listDecks, deleteDeck } from '../../utils/api/index';
 
-const Decks = () => {
-  const [decks, setDecks] = useState([]);
-  const history = useHistory();
-  // needs to get deck information
-  useEffect(() => {
-    async function getDecks() {
-      const response = await listDecks();
-      setDecks(response);
-    }
-    getDecks();
-  }, []);
-
-  // need a delete handler for all deck components
-  const deleteHandler = (id) => {
-    if (window.confirm('Delete this deck?')) {
-      deleteDeck(id);
-      setDecks((current) => current.filter((deck) => deck.id !== id));
-      history.push('/');
-    }
-  };
-
+const Decks = ({ decks, deckDelete }) => {
   let content =
     decks.length > 0 ? (
       decks.map((deck) => (
@@ -31,7 +10,7 @@ const Decks = () => {
           name={deck.name}
           description={deck.description}
           deckId={deck.id}
-          onDelete={deleteHandler}
+          onDelete={deckDelete}
           key={`${deck.name}${deck.id}`}
         />
       ))

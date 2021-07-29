@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { readDeck } from '../../utils/api/index';
+import Card from '../../Components/Card/Card';
 
-const Deck = () => {
+const Deck = ({ deckDelete }) => {
   const { deckId } = useParams();
   const [cards, setCards] = useState([]);
+  const [deck, setDeck] = useState({});
 
   useEffect(() => {
     async function getCards() {
-      const { cards } = await readDeck(deckId);
-      console.log(cards);
+      const response = await readDeck(deckId);
+      setDeck(response);
+      setCards(response.cards);
     }
     getCards();
-  }, []);
+  }, [deckId]);
+
+  const content = cards.map((card) => <Card card={card} />);
 
   return (
     <div>
@@ -29,11 +34,45 @@ const Deck = () => {
             aria-current="page"
             key="create-deck-link"
           >
-            This will be the deck title
+            {deck.name}
           </li>
         </ol>
       </nav>
-      <p>Deck Page</p>
+      <div className="d-flex flex-column">
+        <h3>{deck.name}</h3>
+        <p>{deck.description}</p>
+        <div className="flex-row button-ctr">
+          <div className="float-left">
+            <Link
+              to={`/decks/${deckId}`}
+              className="btn-lg btn-secondary mr-1 mt-1"
+            >
+              <i className="bi bi-eye" />
+              {` `}Edit
+            </Link>
+            <Link className="btn-lg btn-primary m-1">
+              <i className="bi bi-book-half"></i>
+              {` `}Study
+            </Link>
+            <Link className="btn-lg btn-primary m-1">
+              <i className="bi bi-plus-lg" />
+              {` `}Add Card
+            </Link>
+          </div>
+          <div>
+            <button
+              onClick={deckDelete}
+              className="btn-lg btn-danger float-right"
+            >
+              <i className="bi bi-trash" />
+            </button>
+          </div>
+        </div>
+        <div>
+          <h1>Cards</h1>
+          <ul className="list-group">{content}</ul>
+        </div>
+      </div>
     </div>
   );
 };
