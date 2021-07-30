@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ card }) => {
   const { front, back, deckId, id } = card;
   return (
-    <li className="list-group-item">
+    <li className="list-group-item" key={id}>
       <div className="card">
         <div className="d-flex flex-row p-2 card-body">
           <p className="mr-2 card-text col-6"> {front}</p>

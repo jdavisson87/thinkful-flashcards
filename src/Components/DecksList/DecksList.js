@@ -28,7 +28,7 @@ const DecksList = () => {
       <Link to={`/decks/new`} className="btn btn-secondary">
         <i className="bi bi-plus-lg"></i> {` `}Create Deck
       </Link>
-      <ul className="mt-1 p-0">
+      <ul className="list-group mt-1 p-0">
         {decks.length > 0 ? (
           decks.map((deck) => (
             <DeckPreview

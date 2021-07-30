@@ -7,14 +7,15 @@ const CardList = ({ deckId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     async function getCards() {
       try {
         const response = await listCards(deckId);
-        console.log(response);
         setCards(response);
         setLoading(false);
       } catch (error) {
         alert('Sorry, there was an error retrieving the card list');
+        setLoading(false);
       }
     }
     getCards();
@@ -29,11 +30,11 @@ const CardList = ({ deckId }) => {
       <p>There are currently no cards in this deck</p>
     </div>
   ) : (
-    <div>
+    <ul className="list-group">
       {cards.map((card, index) => (
-        <Card card={card} key={`${deckId}${index}`} />
+        <Card card={card} key={`${card.id}${card.deckId}${index}`} />
       ))}
-    </div>
+    </ul>
   );
 };
 

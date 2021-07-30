@@ -15,7 +15,7 @@ const DeckPreview = ({ name, description, deckId, onDelete }) => {
     cards();
   }, [deckId]);
   return (
-    <li className="card" key={deckId}>
+    <li className="card list-group-item" key={deckId}>
       <div className="card-body">
         <div className="d-flex flex-row justify-content-between">
           <h4 className="card-title">{name}</h4>

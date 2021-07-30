@@ -1,8 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import CardList from '../CardList/CardList';
+import { deleteDeck } from '../../utils/api/index';
 
 const DeckView = ({ deckId, name, description }) => {
+  const history = useHistory();
+  const deckDeleteHandler = (id) => {
+    if (window.confirm('Delete this deck?')) {
+      deleteDeck(id);
+      // setDecks((current) => current.filter((deck) => deck.id !== id));
+      history.push('/');
+    }
+  };
   return (
     <div>
       <div className="d-flex flex-column">
@@ -27,7 +36,10 @@ const DeckView = ({ deckId, name, description }) => {
             </Link>
           </div>
           <div>
-            <button className="btn-lg btn-danger float-right">
+            <button
+              className="btn-lg btn-danger float-right"
+              onClick={() => deckDeleteHandler(deckId)}
+            >
               <i className="bi bi-trash" />
             </button>
           </div>
