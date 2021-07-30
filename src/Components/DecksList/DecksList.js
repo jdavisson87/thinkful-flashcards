@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { listDecks, deleteDeck } from '../../utils/api/index';
+import { Link } from 'react-router-dom';
+import { listDecks } from '../../utils/api/index';
 import DeckPreview from '../DeckPreview/DeckPreview';
 
-const DecksList = () => {
+const DecksList = ({ deleteDeck }) => {
   const [decks, setDecks] = useState([]);
-  const history = useHistory();
 
   useEffect(() => {
     async function getDecks() {
-      const response = await listDecks();
-      setDecks(response);
+      try {
+        const response = await listDecks();
+        setDecks(response);
+      } catch (error) {
+        throw error;
+      }
     }
     getDecks();
-  }, []);
-
-  const deckDeleteHandler = (id) => {
-    if (window.confirm('Delete this deck?')) {
-      deleteDeck(id);
-      setDecks((current) => current.filter((deck) => deck.id !== id));
-      history.push('/');
-    }
-  };
+  }, [decks]);
 
   return (
     <div>
@@ -35,7 +30,7 @@ const DecksList = () => {
               name={deck.name}
               description={deck.description}
               deckId={deck.id}
-              onDelete={deckDeleteHandler}
+              onDelete={deleteDeck}
               key={`${deck.name}${deck.id}`}
             />
           ))
