@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import {
+  Link,
+  Route,
+  Switch,
+  useHistory,
+  useRouteMatch,
+} from 'react-router-dom';
 import DeckPreview from '../../Components/DeckPreview/DeckPreview';
 import Deck from '../../Containers/Deck/Deck';
 import CreateDeck from '../CreateDeck/CreateDeck';
@@ -8,6 +14,7 @@ import { listDecks, deleteDeck } from '../../utils/api/index';
 const Decks = () => {
   const [decks, setDecks] = useState([]);
   const history = useHistory();
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     async function getDecks() {
@@ -40,18 +47,18 @@ const Decks = () => {
     );
   return (
     <div>
-      <Link to={`/decks/new`} className="btn btn-secondary">
-        <i className="bi bi-plus-lg"></i> {` `}Create Deck
-      </Link>
       <Switch>
-        <Route exact path={'/decks/:deckId'}>
+        <Route exact path={'/'}>
+          <Link to={`/decks/new`} className="btn btn-secondary">
+            <i className="bi bi-plus-lg"></i> {` `}Create Deck
+          </Link>
+          <ul className="mt-1 p-0">{content}</ul>
+        </Route>
+        <Route path={'/decks/:deckId'}>
           <Deck />
         </Route>
         <Route path={'/decks/new'}>
           <CreateDeck />
-        </Route>
-        <Route>
-          <ul className="mt-1 p-0">{content}</ul>
         </Route>
       </Switch>
     </div>
