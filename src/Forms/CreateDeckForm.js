@@ -24,8 +24,15 @@ const CreateDeckForm = () => {
 
   async function onSubmit(event) {
     event.preventDefault();
-    const response = await createDeck(newDeck);
-    history.push(`/decks/${response.id}`);
+    try {
+      const response = await createDeck(newDeck);
+      history.push(`/decks/${response.id}`);
+    } catch (error) {
+      alert(
+        'Sorry, something went wrong when we tried to create a new deck.  Please try again.'
+      );
+      history.push('/');
+    }
   }
 
   return (
