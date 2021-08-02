@@ -38,7 +38,7 @@ const NewCard = ({ name }) => {
             <Link to={`/decks/${deckId}`}>{name}</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            Edit Deck
+            New Card
           </li>
         </ol>
       </nav>
