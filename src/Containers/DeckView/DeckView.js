@@ -38,7 +38,10 @@ const DeckView = ({ deckId, name, description, deleteDeck }) => {
               <i className="bi bi-book-half"></i>
               {` `}Study
             </Link>
-            <Link className="btn-lg btn-primary m-1">
+            <Link
+              to={`/decks/${deckId}/cards/new`}
+              className="btn-lg btn-primary m-1"
+            >
               <i className="bi bi-plus-lg" />
               {` `}Add Card
             </Link>

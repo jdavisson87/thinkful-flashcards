@@ -67,6 +67,18 @@
       "back": "b",
       "deckId": 1,
       "id": 6
+    },
+    {
+      "defaultCard": {
+        "id": "",
+        "front": "",
+        "back": "",
+        "deckId": "2"
+      },
+      "front": "Doing this again",
+      "back": "And again",
+      "deckId": 2,
+      "id": 7
     }
   ]
 }

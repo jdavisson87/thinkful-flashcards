@@ -26,9 +26,6 @@ const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
   let content = deck ? (
     <div>
       <Switch>
-        <Route path={'/decks/:deckId/cards'}>
-          <CardRoutes deck={deck} />
-        </Route>
         <Route exact path={'/decks/:deckId'}>
           <DeckView
             deckId={deck.id}
@@ -44,6 +41,9 @@ const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
             setDecks={setDecks}
             decks={decks}
           />
+        </Route>
+        <Route path={'/decks/:deckId/cards'}>
+          <CardRoutes deck={deck} />
         </Route>
       </Switch>
     </div>

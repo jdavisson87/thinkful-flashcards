@@ -1,64 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import { readCard, updateCard } from '../utils/api/index';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-const CardForm = ({ deck }) => {
-  const { cardId } = useParams();
+const CardForm = ({ card, submitHandler, changeHandler }) => {
   const history = useHistory();
-  const defaultCard = {
-    id: cardId,
-    front: '',
-    back: '',
-    deckId: deck.id,
-  };
-  const [card, setCard] = useState(defaultCard);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-    async function getCard() {
-      try {
-        const response = await readCard(cardId);
-        setCard(response);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        throw error;
-      }
-    }
-    getCard();
-  }, [cardId]);
-
-  const submitHandler = async (event) => {
-    event.preventDefault();
-    updateCard(card);
-    history.push(`/decks/${deck.id}`);
-  };
-
-  const changeHandler = ({ target }) => {
-    setCard({
-      ...card,
-      [target.id]: target.value,
-    });
-  };
-
-  return loading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <div>
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="breadcrumb-item">
-            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            Edit Deck
-          </li>
-        </ol>
-      </nav>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="front">Front</label>
