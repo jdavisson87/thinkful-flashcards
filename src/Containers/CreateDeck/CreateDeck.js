@@ -1,8 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import CreateDeckForm from '../../Forms/CreateDeckForm';
+import { createDeck } from '../../utils/api/index';
 
-const CreateDeck = ({ submitHandler }) => {
+const CreateDeck = ({ setDecks }) => {
+  const history = useHistory();
+
+  async function submitHandler(event, newDeck) {
+    event.preventDefault();
+    try {
+      const response = await createDeck(newDeck);
+      await setDecks((curr) => [...curr, { ...response }]);
+      history.push(`/decks/${response.id}`);
+    } catch (error) {
+      alert(
+        'Sorry, something went wrong when we tried to create a new deck.  Please try again'
+      );
+      history.push('/');
+    }
+  }
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -22,7 +38,10 @@ const CreateDeck = ({ submitHandler }) => {
           </li>
         </ol>
       </nav>
-      <CreateDeckForm submitHandler={submitHandler} />
+      <div>
+        <h1>Create Deck</h1>
+        <CreateDeckForm submitHandler={submitHandler} />
+      </div>
     </div>
   );
 };

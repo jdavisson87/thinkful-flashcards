@@ -22,19 +22,19 @@ const Decks = () => {
     getDecks();
   }, []);
 
-  async function submitHandler(event, newDeck) {
-    event.preventDefault();
-    try {
-      const response = await createDeck(newDeck);
-      await setDecks([...decks, { ...response }]);
-      history.push(`/decks/${response.id}`);
-    } catch (error) {
-      alert(
-        'Sorry, something went wrong when we tried to create a new deck.  Please try again'
-      );
-      history.push('/');
-    }
-  }
+  // async function submitHandler(event, newDeck) {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await createDeck(newDeck);
+  //     await setDecks([...decks, { ...response }]);
+  //     history.push(`/decks/${response.id}`);
+  //   } catch (error) {
+  //     alert(
+  //       'Sorry, something went wrong when we tried to create a new deck.  Please try again'
+  //     );
+  //     history.push('/');
+  //   }
+  // }
 
   const deckDeleteHandler = async (id) => {
     if (window.confirm('Delete this deck?')) {
@@ -51,10 +51,14 @@ const Decks = () => {
           <DecksList decks={decks} deleteDeck={deckDeleteHandler} />
         </Route>
         <Route path={'/decks/new'}>
-          <CreateDeck submitHandler={submitHandler} />
+          <CreateDeck setDecks={setDecks} />
         </Route>
         <Route path={'/decks/:deckId'}>
-          <DeckRoutes deleteDeck={deckDeleteHandler} />
+          <DeckRoutes
+            setDecks={setDecks}
+            decks={decks}
+            deleteDeck={deckDeleteHandler}
+          />
         </Route>
       </Switch>
     </div>

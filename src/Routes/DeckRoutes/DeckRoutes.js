@@ -5,7 +5,7 @@ import DeckView from '../../Containers/DeckView/DeckView';
 import CardRoutes from '../CardRoutes/CardRoutes';
 import EditDeck from '../../Components/EditDeck/EditDeck';
 
-const DeckRoutes = ({ deleteDeck }) => {
+const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
   const [deck, setDeck] = useState({});
   const { deckId } = useParams();
   const history = useHistory();
@@ -38,7 +38,12 @@ const DeckRoutes = ({ deleteDeck }) => {
           />
         </Route>
         <Route path={'/decks/:deckId/edit'}>
-          <EditDeck deck={deck} />
+          <EditDeck
+            currentDeck={deck}
+            setCurrentDeck={setDeck}
+            setDecks={setDecks}
+            decks={decks}
+          />
         </Route>
       </Switch>
     </div>

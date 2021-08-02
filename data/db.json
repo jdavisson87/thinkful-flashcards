@@ -6,7 +6,7 @@
       "id": 1
     },
     {
-      "name": "React Router",
+      "name": "React Router Quiz",
       "description": "React Router is a collection of navigational components that compose declaratively with your application.",
       "id": 2
     },
@@ -26,19 +26,9 @@
       "id": 6
     },
     {
-      "name": "another",
-      "description": "another",
+      "name": "testing",
+      "description": "testing",
       "id": 7
-    },
-    {
-      "name": "another 1",
-      "description": "another 1",
-      "id": 8
-    },
-    {
-      "name": "another 12",
-      "description": "another 12",
-      "id": 9
     }
   ],
   "cards": [
@@ -73,7 +63,7 @@
       "id": 5
     },
     {
-      "front": "b",
+      "front": "be",
       "back": "b",
       "deckId": 1,
       "id": 6
