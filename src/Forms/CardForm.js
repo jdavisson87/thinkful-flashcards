@@ -32,7 +32,7 @@ const CardForm = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     updateCard(card);
-    history.goBack();
+    history.push(`/decks/${deckId}`);
   };
 
   const changeHandler = ({ target }) => {

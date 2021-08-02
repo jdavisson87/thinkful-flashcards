@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createDeck } from '../utils/api/index';
 
 const CreateDeckForm = ({ submitHandler }) => {
   const formDefault = {
@@ -11,6 +10,7 @@ const CreateDeckForm = ({ submitHandler }) => {
   const [newDeck, setNewDeck] = useState(formDefault);
 
   const history = useHistory();
+
   const cancelClick = () => {
     history.push('/');
   };
@@ -47,10 +47,7 @@ const CreateDeckForm = ({ submitHandler }) => {
         />
       </div>
       <div>
-        <button
-          onClick={() => cancelClick()}
-          className="btn btn-secondary mr-2"
-        >
+        <button onClick={cancelClick} className="btn btn-secondary mr-2">
           Cancel
         </button>
         <button type="submit" className="btn btn-primary">

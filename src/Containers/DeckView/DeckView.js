@@ -5,13 +5,30 @@ import CardList from '../CardList/CardList';
 const DeckView = ({ deckId, name, description, deleteDeck }) => {
   return (
     <div>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item" key="home-link">
+            <Link to={'/'}>
+              <i className="bi bi-house-door-fill" />
+              {` `}Home
+            </Link>
+          </li>
+          <li
+            className="breadcrumb-item active"
+            aria-current="page"
+            key="create-deck-link"
+          >
+            {name}
+          </li>
+        </ol>
+      </nav>
       <div className="d-flex flex-column">
         <h3>{name}</h3>
         <p>{description}</p>
         <div className="flex-row button-ctr">
           <div className="float-left">
             <Link
-              to={`/decks/${deckId}`}
+              to={`/decks/${deckId}/edit`}
               className="btn-lg btn-secondary mr-1 mt-1"
             >
               <i className="bi bi-eye" />
