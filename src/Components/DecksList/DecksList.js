@@ -10,15 +10,17 @@ const DecksList = ({ decks, deleteDeck }) => {
       </Link>
       <ul className="list-group mt-1 p-0">
         {decks.length > 0 ? (
-          decks.map((deck) => (
-            <DeckPreview
-              name={deck.name}
-              description={deck.description}
-              deckId={deck.id}
-              onDelete={deleteDeck}
-              key={`${deck.name}${deck.id}`}
-            />
-          ))
+          decks
+            .map((deck) => (
+              <DeckPreview
+                name={deck.name}
+                description={deck.description}
+                deckId={deck.id}
+                onDelete={deleteDeck}
+                key={`${deck.name}${deck.id}`}
+              />
+            ))
+            .sort((a, b) => a.id - b.id)
         ) : (
           <li className="card">
             There are currently no decks available. How about we create one?
