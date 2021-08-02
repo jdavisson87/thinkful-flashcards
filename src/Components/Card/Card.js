@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
-const Card = ({ card }) => {
+const Card = ({ card, deleteHandler }) => {
   const { front, back, deckId, id } = card;
   const { url } = useRouteMatch();
   return (
@@ -12,9 +12,12 @@ const Card = ({ card }) => {
           <p className="ml-2 col-6 card-text">{back} </p>
         </div>
         <div>
-          <Link className="btn btn-danger float-right m-1">
+          <button
+            onClick={() => deleteHandler(id)}
+            className="btn btn-danger float-right m-1"
+          >
             <i className="bi bi-trash" />
-          </Link>
+          </button>
           <Link
             to={`${url}/cards/${id}/edit`}
             className="btn btn-secondary float-right m-1"

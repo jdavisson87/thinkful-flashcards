@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Card from '../../Components/Card/Card';
-import { listCards } from '../../utils/api/index';
+import { listCards, deleteCard } from '../../utils/api/index';
 
 const CardList = ({ deckId }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -21,6 +23,14 @@ const CardList = ({ deckId }) => {
     getCards();
   }, [deckId]);
 
+  const deleteCardHandler = async (cardId) => {
+    if (window.confirm('Do you want to delete this card?')) {
+      await deleteCard(cardId);
+      setCards(() => cards.filter((card) => card.id !== cardId));
+      //history.go(`/decks/${deckId}`);
+    }
+  };
+
   return loading ? (
     <div>
       <p>Loading....</p>
@@ -32,7 +42,11 @@ const CardList = ({ deckId }) => {
   ) : (
     <ul className="list-group">
       {cards.map((card, index) => (
-        <Card card={card} key={`${card.id}${card.deckId}${index}`} />
+        <Card
+          card={card}
+          deleteHandler={deleteCardHandler}
+          key={`${card.id}${card.deckId}${index}`}
+        />
       ))}
     </ul>
   );
