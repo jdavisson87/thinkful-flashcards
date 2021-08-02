@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createDeck } from '../utils/api/index';
 
-const CreateDeckForm = () => {
+const CreateDeckForm = ({ submitHandler }) => {
   const formDefault = {
     name: '',
     description: '',
@@ -22,21 +22,8 @@ const CreateDeckForm = () => {
     });
   };
 
-  async function onSubmit(event) {
-    event.preventDefault();
-    try {
-      const response = await createDeck(newDeck);
-      history.push(`/decks/${response.id}`);
-    } catch (error) {
-      alert(
-        'Sorry, something went wrong when we tried to create a new deck.  Please try again.'
-      );
-      history.push('/');
-    }
-  }
-
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={(event) => submitHandler(event, newDeck)}>
       <h1>Create Deck</h1>
       <div className="form-group">
         <label htmlFor="deck-form-name">Name</label>

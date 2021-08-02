@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CreateDeckForm from '../../Forms/CreateDeckForm';
 
-const CreateDeck = () => {
+const CreateDeck = ({ submitHandler }) => {
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -22,7 +22,7 @@ const CreateDeck = () => {
           </li>
         </ol>
       </nav>
-      <CreateDeckForm />
+      <CreateDeckForm submitHandler={submitHandler} />
     </div>
   );
 };

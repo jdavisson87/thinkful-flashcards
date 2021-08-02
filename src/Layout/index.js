@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './Header';
-import Decks from '../Containers/Decks/Decks';
+import DecksRoutes from '../Routes/DecksRoutes/DecksRoutes';
 import NotFound from './NotFound';
 
 function Layout() {
@@ -11,7 +11,7 @@ function Layout() {
       <div className="container">
         <Switch>
           <Route path="/">
-            <Decks />
+            <DecksRoutes />
           </Route>
           <Route>
             <NotFound />

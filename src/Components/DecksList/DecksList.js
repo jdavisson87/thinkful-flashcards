@@ -1,23 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { listDecks } from '../../utils/api/index';
 import DeckPreview from '../DeckPreview/DeckPreview';
 
-const DecksList = ({ deleteDeck }) => {
-  const [decks, setDecks] = useState([]);
-
-  useEffect(() => {
-    async function getDecks() {
-      try {
-        const response = await listDecks();
-        setDecks(response);
-      } catch (error) {
-        throw error;
-      }
-    }
-    getDecks();
-  }, [decks]);
-
+const DecksList = ({ decks, deleteDeck }) => {
   return (
     <div>
       <Link to={`/decks/new`} className="btn btn-secondary">

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, Route, Switch, useParams, useHistory } from 'react-router-dom';
 import { readDeck } from '../../utils/api/index';
 import DeckView from '../../Containers/DeckView/DeckView';
+import CardRoutes from '../CardRoutes/CardRoutes';
 
-const Deck = ({ deleteDeck }) => {
+const DeckRoutes = ({ deleteDeck }) => {
   const [deck, setDeck] = useState({});
   const { deckId } = useParams();
   const { name } = deck;
@@ -20,7 +21,7 @@ const Deck = ({ deleteDeck }) => {
       }
     }
     getDeck();
-  }, [deckId, history]);
+  }, [deckId]);
 
   let content = deck ? (
     <div>
@@ -42,6 +43,9 @@ const Deck = ({ deleteDeck }) => {
         </ol>
       </nav>
       <Switch>
+        <Route path={'/decks/:deckId/cards'}>
+          <CardRoutes />
+        </Route>
         <Route exact path={'/decks/:deckId'}>
           <DeckView
             deckId={deck.id}
@@ -59,4 +63,4 @@ const Deck = ({ deleteDeck }) => {
   return content;
 };
 
-export default Deck;
+export default DeckRoutes;

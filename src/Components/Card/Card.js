@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 const Card = ({ card }) => {
   const { front, back, deckId, id } = card;
+  const { url } = useRouteMatch();
   return (
     <li className="list-group-item" key={`${id}${deckId}`}>
       <div className="card">
@@ -10,13 +12,16 @@ const Card = ({ card }) => {
           <p className="ml-2 col-6 card-text">{back} </p>
         </div>
         <div>
-          <button className="btn btn-danger float-right m-1">
+          <Link className="btn btn-danger float-right m-1">
             <i className="bi bi-trash" />
-          </button>
-          <button className="btn btn-secondary float-right m-1">
+          </Link>
+          <Link
+            to={`${url}/cards/${id}/edit`}
+            className="btn btn-secondary float-right m-1"
+          >
             <i className="bi bi-pencil-fill" />
             {` `}Edit
-          </button>
+          </Link>
         </div>
       </div>
     </li>

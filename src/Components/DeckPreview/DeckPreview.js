@@ -8,11 +8,11 @@ const DeckPreview = ({ name, description, deckId, onDelete }) => {
   // Link study to the study url and view to the view url
   const [numberOfCards, setNumberOfCards] = useState(0);
   useEffect(() => {
-    async function cards() {
+    async function getAmountOfCards() {
       const cards = await listCards(deckId);
       setNumberOfCards(cards.length);
     }
-    cards();
+    getAmountOfCards();
   }, [deckId]);
   return (
     <li className="card list-group-item" key={deckId}>
