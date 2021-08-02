@@ -27,7 +27,7 @@ const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
     <div>
       <Switch>
         <Route path={'/decks/:deckId/cards'}>
-          <CardRoutes />
+          <CardRoutes deck={deck} />
         </Route>
         <Route exact path={'/decks/:deckId'}>
           <DeckView

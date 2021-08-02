@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { readCard, updateCard } from '../utils/api/index';
 
-const CardForm = () => {
-  const { deckId, cardId } = useParams();
+const CardForm = ({ deck }) => {
+  const { cardId } = useParams();
   const history = useHistory();
   const defaultCard = {
     id: cardId,
     front: '',
     back: '',
-    deckId: deckId,
+    deckId: deck.id,
   };
   const [card, setCard] = useState(defaultCard);
   const [loading, setLoading] = useState(true);
@@ -32,7 +32,7 @@ const CardForm = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     updateCard(card);
-    history.push(`/decks/${deckId}`);
+    history.push(`/decks/${deck.id}`);
   };
 
   const changeHandler = ({ target }) => {
@@ -46,6 +46,19 @@ const CardForm = () => {
     <div>Loading...</div>
   ) : (
     <div>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Edit Deck
+          </li>
+        </ol>
+      </nav>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="front">Front</label>
