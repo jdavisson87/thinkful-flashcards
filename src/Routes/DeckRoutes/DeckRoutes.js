@@ -3,7 +3,8 @@ import { Route, Switch, useParams, useHistory } from 'react-router-dom';
 import { readDeck } from '../../utils/api/index';
 import DeckView from '../../Containers/DeckView/DeckView';
 import CardRoutes from '../CardRoutes/CardRoutes';
-import EditDeck from '../../Components/EditDeck/EditDeck';
+import EditDeck from '../../Containers/EditDeck/EditDeck';
+import Study from '../../Containers/Study/Study';
 
 const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
   const [deck, setDeck] = useState({});
@@ -41,6 +42,9 @@ const DeckRoutes = ({ deleteDeck, setDecks, decks }) => {
             setDecks={setDecks}
             decks={decks}
           />
+        </Route>
+        <Route path={'/decks/:deckId/study'}>
+          <Study />
         </Route>
         <Route path={'/decks/:deckId/cards'}>
           <CardRoutes deck={deck} />

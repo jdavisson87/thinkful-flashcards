@@ -29,7 +29,10 @@ const DeckPreview = ({ name, description, deckId, onDelete }) => {
             <i className="bi bi-eye" />
             {` `}View
           </Link>
-          <Link className="btn-lg btn-primary m-1">
+          <Link
+            to={`/decks/${deckId}/study`}
+            className="btn-lg btn-primary m-1"
+          >
             <i className="bi bi-book-half"></i>
             {` `}Study
           </Link>
