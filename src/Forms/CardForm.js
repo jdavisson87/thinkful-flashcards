@@ -1,8 +1,9 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const CardForm = ({ card, submitHandler, changeHandler }) => {
   const history = useHistory();
+  const { deckId } = useParams();
 
   return (
     <div>
@@ -30,13 +31,13 @@ const CardForm = ({ card, submitHandler, changeHandler }) => {
           />
         </div>
         <button
-          onClick={() => history.goBack()}
-          className="btn-lg btn-secondary"
+          onClick={() => history.push(`/decks/${deckId}`)}
+          className="btn-lg btn-secondary m-1"
         >
-          Cancel
+          {card.id ? 'Cancel' : 'Done'}
         </button>
-        <button type="submit" className="btn-lg btn-primary">
-          Submit
+        <button type="submit" className="btn-lg btn-primary m-1">
+          {card.id ? 'Submit' : 'Save'}
         </button>
       </form>
     </div>

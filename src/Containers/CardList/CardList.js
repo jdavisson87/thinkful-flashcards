@@ -1,52 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import Card from '../../Components/Card/Card';
-import { listCards, deleteCard } from '../../utils/api/index';
+import { deleteCard } from '../../utils/api/index';
 
-const CardList = ({ deckId }) => {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    async function getCards() {
-      try {
-        const response = await listCards(deckId);
-        setCards(response);
-        setLoading(false);
-      } catch (error) {
-        alert('Sorry, there was an error retrieving the card list');
-        setLoading(false);
-      }
-    }
-    getCards();
-  }, [deckId]);
-
+const CardList = ({ cards = [] }) => {
+  const { deckId } = useParams();
+  const history = useHistory();
   const deleteCardHandler = async (cardId) => {
     if (window.confirm('Do you want to delete this card?')) {
       await deleteCard(cardId);
-      setCards(() => cards.filter((card) => card.id !== cardId));
+      history.go(`/decks/${deckId}`);
     }
   };
 
-  return loading ? (
-    <div>
-      <p>Loading....</p>
-    </div>
-  ) : cards.length === 0 ? (
-    <div>
-      <p>There are currently no cards in this deck</p>
-    </div>
-  ) : (
-    <ul className="list-group">
-      {cards.map((card, index) => (
-        <Card
-          card={card}
-          deleteHandler={deleteCardHandler}
-          key={`${card.id}${card.deckId}${index}`}
-        />
-      ))}
-    </ul>
-  );
+  let content;
+  if (cards.length === 0) {
+    content = (
+      <div>
+        <p>There are no cards in this deck. Please add some cards</p>
+      </div>
+    );
+  } else {
+    content = cards.map((card) => (
+      <Card
+        card={card}
+        deleteHandler={deleteCardHandler}
+        key={`${card.id}${card.deckId}`}
+      />
+    ));
+  }
+
+  return <ul className="list-group">{content}</ul>;
 };
 
 export default CardList;

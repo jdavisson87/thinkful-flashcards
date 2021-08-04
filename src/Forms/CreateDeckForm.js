@@ -1,11 +1,15 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const CreateDeckForm = ({ submitHandler, changeHandler, deck }) => {
   const history = useHistory();
-
+  const { deckId } = useParams();
   const cancelClick = () => {
-    history.push('/');
+    if (deckId) {
+      history.push(`/decks/${deckId}`);
+    } else {
+      history.push('/');
+    }
   };
 
   return (

@@ -55,13 +55,13 @@ const Study = () => {
               {` `}Home
             </Link>
           </li>
-          <li className="breadcrumb-item" key="home-link">
+          <li className="breadcrumb-item" key="deck-link">
             <Link to={`/decks/${deckId}`}>{currentDeck.name}</Link>
           </li>
           <li
             className="breadcrumb-item active"
             aria-current="page"
-            key="create-deck-link"
+            key="study-link"
           >
             Study
           </li>

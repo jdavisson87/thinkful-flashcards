@@ -82,7 +82,7 @@ const DeckView = () => {
         </div>
         <div>
           <h1>Cards</h1>
-          <CardList deckId={deckId} />
+          <CardList cards={deck.cards} />
         </div>
       </div>
     </div>

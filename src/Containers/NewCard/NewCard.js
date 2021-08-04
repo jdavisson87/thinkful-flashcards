@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import CardForm from '../../Forms/CardForm';
-import { createCard } from '../../utils/api/index';
+import { createCard, readDeck } from '../../utils/api/index';
 
-const NewCard = ({ name }) => {
+const NewCard = () => {
   const history = useHistory();
   const { deckId } = useParams();
   const defaultCard = {
@@ -13,6 +13,15 @@ const NewCard = ({ name }) => {
     deckId: deckId,
   };
   const [card, setCard] = useState({ defaultCard });
+  const [deckName, setDeckName] = useState('');
+
+  useEffect(() => {
+    async function getDeckName() {
+      const deckData = await readDeck(deckId);
+      setDeckName(deckData.name);
+    }
+    getDeckName();
+  }, [deckId]);
 
   const changeHandler = ({ target }) => {
     setCard({
@@ -35,18 +44,21 @@ const NewCard = ({ name }) => {
             <Link to="/">Home</Link>
           </li>
           <li className="breadcrumb-item">
-            <Link to={`/decks/${deckId}`}>{name}</Link>
+            <Link to={`/decks/${deckId}`}>{deckName}</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            New Card
+            Add Card
           </li>
         </ol>
       </nav>
-      <CardForm
-        card={card}
-        changeHandler={changeHandler}
-        submitHandler={submitHandler}
-      />
+      <div>
+        <h1>{deckName}: Add Card</h1>
+        <CardForm
+          card={card}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
+      </div>
     </div>
   );
 };

@@ -18,9 +18,11 @@ const StudyCard = ({
         <button className="btn btn-secondary m-1" onClick={flipCard}>
           Flip
         </button>
-        <button className="btn btn-primary m-1" onClick={nextCard}>
-          Next
-        </button>
+        {!frontSide && (
+          <button className="btn btn-primary m-1" onClick={nextCard}>
+            Next
+          </button>
+        )}
       </div>
     </div>
   );

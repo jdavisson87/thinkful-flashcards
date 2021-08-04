@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './Header';
-import DecksRoutes from '../Routes/DecksRoutes/DecksRoutes';
+import DecksRoutes from '../Routes/DecksRoutes';
 import NotFound from './NotFound';
 
 function Layout() {

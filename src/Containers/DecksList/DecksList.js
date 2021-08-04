@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { listDecks, deleteDeck } from '../../utils/api/index';
-import DeckPreview from '../DeckPreview/DeckPreview';
+import DeckPreview from '../../Components/DeckPreview/DeckPreview';
 
 const DecksList = () => {
   const [decks, setDecks] = useState([]);

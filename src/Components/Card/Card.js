@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Card = ({ card, deleteHandler }) => {
   const { front, back, deckId, id } = card;
-  const { url } = useRouteMatch();
+  const linkPath =
+    deckId && id
+      ? `/decks/${deckId}/cards/${id}/edit`
+      : deckId
+      ? `/decks/${deckId}`
+      : '/';
+
   return (
     <li className="list-group-item" key={`${id}${deckId}`}>
       <div className="card">
@@ -18,10 +24,7 @@ const Card = ({ card, deleteHandler }) => {
           >
             <i className="bi bi-trash" />
           </button>
-          <Link
-            to={`${url}/cards/${id}/edit`}
-            className="btn btn-secondary float-right m-1"
-          >
+          <Link to={linkPath} className="btn btn-secondary float-right m-1">
             <i className="bi bi-pencil-fill" />
             {` `}Edit
           </Link>
