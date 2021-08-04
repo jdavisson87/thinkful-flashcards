@@ -1,8 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { readDeck, deleteDeck } from '../../utils/api/index';
 import CardList from '../CardList/CardList';
 
-const DeckView = ({ deckId, name, description, deleteDeck }) => {
+const DeckView = () => {
+  const { deckId } = useParams();
+  const history = useHistory();
+
+  const [deck, setDeck] = useState({});
+  const { name, description } = deck;
+
+  useEffect(() => {
+    async function getDeck() {
+      const response = await readDeck(deckId);
+      setDeck(response);
+    }
+    getDeck();
+  }, [deckId]);
+
+  const deckDeleteHandler = async (id) => {
+    if (window.confirm('Delete this deck?')) {
+      deleteDeck(id);
+      history.push('/');
+    }
+  };
+
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -52,7 +74,7 @@ const DeckView = ({ deckId, name, description, deleteDeck }) => {
           <div>
             <button
               className="btn-lg btn-danger float-right"
-              onClick={() => deleteDeck(deckId)}
+              onClick={() => deckDeleteHandler(deckId)}
             >
               <i className="bi bi-trash" />
             </button>

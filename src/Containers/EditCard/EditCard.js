@@ -1,30 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import CardForm from '../../Forms/CardForm';
-import { updateCard, readCard } from '../../utils/api/index';
+import { updateCard, readCard, readDeck } from '../../utils/api/index';
 
-const EditCard = ({ deck = {} }) => {
+const EditCard = () => {
   const history = useHistory();
-  const { cardId } = useParams();
+  const { deckId, cardId } = useParams();
 
-  const [card, setCard] = useState({});
+  const deckDefault = {
+    id: deckId,
+    name: '',
+    description: '',
+  };
+
+  const cardDefault = {
+    id: cardId,
+    deckId: deckId,
+    front: '',
+    back: '',
+  };
+
+  const [card, setCard] = useState(cardDefault);
+  const [deck, setDeck] = useState(deckDefault);
 
   useEffect(() => {
-    async function getCard() {
+    async function getData() {
       try {
-        const response = await readCard(cardId);
-        setCard(response);
+        const cardResponse = await readCard(cardId);
+        setCard(cardResponse);
+        const deckResponse = await readDeck(deckId);
+        setDeck(deckResponse);
       } catch (error) {
         throw error;
       }
     }
-    getCard();
-  }, [cardId]);
+    getData();
+  }, [cardId, deckId]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
     updateCard(card);
-    history.push(`/decks/${deck.id}`);
+    history.push(`/decks/${deckId}`);
   };
 
   const changeHandler = ({ target }) => {
@@ -42,7 +58,7 @@ const EditCard = ({ deck = {} }) => {
             <Link to="/">Home</Link>
           </li>
           <li className="breadcrumb-item">
-            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+            <Link to={`/decks/${deckId}`}>{deck.name}</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             Edit Card

@@ -67,7 +67,7 @@ const Study = () => {
           </li>
         </ol>
       </nav>
-      <h1>{currentDeck.name}: Study</h1>
+      <h1>Study: {currentDeck.name}</h1>
 
       {currentDeck.cards.length > 2 ? (
         <div>

@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 const CreateDeckForm = ({
   submitHandler,
-  deck = { name: '', description: '' },
+  changeHandler,
+  deck = {
+    name: '',
+    description: '',
+  },
 }) => {
-  const [newDeck, setNewDeck] = useState(deck);
-
   const history = useHistory();
 
   const cancelClick = () => {
     history.goBack();
   };
 
-  const onChange = (event) => {
-    setNewDeck({
-      ...newDeck,
-      [event.target.id]: event.target.value,
-    });
-  };
-
   return (
-    <form onSubmit={(event) => submitHandler(event, newDeck)}>
+    <form onSubmit={(event) => submitHandler(event, deck)}>
       <div className="form-group">
         <label htmlFor="deck-form-name">Name</label>
         <input
@@ -29,8 +24,8 @@ const CreateDeckForm = ({
           type="text"
           className="form-control"
           placeholder="Deck Name"
-          value={newDeck.name}
-          onChange={onChange}
+          value={deck.name}
+          onChange={changeHandler}
         />
       </div>
       <div className="form-group">
@@ -40,9 +35,9 @@ const CreateDeckForm = ({
           type="text"
           className="form-control"
           placeholder="Brief description of the deck"
-          value={newDeck.description}
+          value={deck.description}
           rows="5"
-          onChange={onChange}
+          onChange={changeHandler}
         />
       </div>
       <div>

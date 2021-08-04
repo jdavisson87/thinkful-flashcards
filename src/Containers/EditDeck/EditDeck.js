@@ -1,20 +1,38 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { updateDeck } from '../../utils/api/index';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { updateDeck, readDeck } from '../../utils/api/index';
 import CreateDeckForm from '../../Forms/CreateDeckForm';
 
-const EditDeck = ({ currentDeck, setCurrentDeck, decks, setDecks }) => {
+const EditDeck = () => {
   const history = useHistory();
+  const { deckId } = useParams();
+  const [currentDeck, setCurrentDeck] = useState({});
+
+  useEffect(() => {
+    async function getDeck() {
+      try {
+        const response = await readDeck(deckId);
+        await setCurrentDeck(response);
+      } catch (error) {
+        alert('Sorry, something went wrong');
+        history.push('/');
+      }
+    }
+    getDeck();
+  }, [deckId, history]);
 
   const submitHandler = (event, updatedDeck) => {
     event.preventDefault();
     updateDeck(updatedDeck);
-    setDecks(() => {
-      const updatedList = decks.filter((deck) => deck.id !== updatedDeck.id);
-      return [...updatedList, updatedDeck];
-    });
     setCurrentDeck(updatedDeck);
-    history.push(`/decks/${updatedDeck.id}`);
+    history.push(`/decks/${deckId}`);
+  };
+
+  const changeHandler = (event) => {
+    setCurrentDeck({
+      ...currentDeck,
+      [event.target.id]: event.target.value,
+    });
   };
 
   return (
@@ -25,7 +43,7 @@ const EditDeck = ({ currentDeck, setCurrentDeck, decks, setDecks }) => {
             <Link to="/">Home</Link>
           </li>
           <li className="breadcrumb-item">
-            <Link to={`/decks/${currentDeck.id}`}>{currentDeck.name}</Link>
+            <Link to={`/decks/${deckId}`}>{currentDeck.name}</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             Edit Deck
@@ -34,7 +52,11 @@ const EditDeck = ({ currentDeck, setCurrentDeck, decks, setDecks }) => {
       </nav>
       <div>
         <h1>Edit Deck</h1>
-        <CreateDeckForm deck={currentDeck} submitHandler={submitHandler} />
+        <CreateDeckForm
+          deck={currentDeck}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
       </div>
     </div>
   );

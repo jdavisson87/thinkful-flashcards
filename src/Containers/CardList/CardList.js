@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Card from '../../Components/Card/Card';
 import { listCards, deleteCard } from '../../utils/api/index';
 
 const CardList = ({ deckId }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +25,6 @@ const CardList = ({ deckId }) => {
     if (window.confirm('Do you want to delete this card?')) {
       await deleteCard(cardId);
       setCards(() => cards.filter((card) => card.id !== cardId));
-      //history.go(`/decks/${deckId}`);
     }
   };
 
