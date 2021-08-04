@@ -1,18 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const CreateDeckForm = ({
-  submitHandler,
-  changeHandler,
-  deck = {
-    name: '',
-    description: '',
-  },
-}) => {
+const CreateDeckForm = ({ submitHandler, changeHandler, deck }) => {
   const history = useHistory();
 
   const cancelClick = () => {
-    history.goBack();
+    history.push('/');
   };
 
   return (

@@ -6,7 +6,12 @@ import CreateDeckForm from '../../Forms/CreateDeckForm';
 const EditDeck = () => {
   const history = useHistory();
   const { deckId } = useParams();
-  const [currentDeck, setCurrentDeck] = useState({});
+  const deckDefault = {
+    id: '',
+    name: '',
+    description: '',
+  };
+  const [currentDeck, setCurrentDeck] = useState(deckDefault);
 
   useEffect(() => {
     async function getDeck() {

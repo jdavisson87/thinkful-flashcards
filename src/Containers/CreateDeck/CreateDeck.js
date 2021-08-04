@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import CreateDeckForm from '../../Forms/CreateDeckForm';
 import { createDeck } from '../../utils/api/index';
 
-const CreateDeck = ({ setDecks }) => {
+const CreateDeck = () => {
   const history = useHistory();
+  const defaultCard = {
+    name: '',
+    description: '',
+  };
 
-  async function submitHandler(event, newDeck) {
+  const [newDeck, setNewDeck] = useState(defaultCard);
+
+  const changeHandler = ({ target }) => {
+    setNewDeck({
+      ...newDeck,
+      [target.id]: target.value,
+    });
+  };
+
+  async function submitHandler(event) {
     event.preventDefault();
     try {
       const response = await createDeck(newDeck);
-      await setDecks((curr) => [...curr, { ...response }]);
       history.push(`/decks/${response.id}`);
     } catch (error) {
       alert(
@@ -19,6 +31,7 @@ const CreateDeck = ({ setDecks }) => {
       history.push('/');
     }
   }
+
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -40,7 +53,11 @@ const CreateDeck = ({ setDecks }) => {
       </nav>
       <div>
         <h1>Create Deck</h1>
-        <CreateDeckForm submitHandler={submitHandler} />
+        <CreateDeckForm
+          submitHandler={submitHandler}
+          changeHandler={changeHandler}
+          deck={newDeck}
+        />
       </div>
     </div>
   );

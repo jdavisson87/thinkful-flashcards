@@ -58,9 +58,7 @@ const Decks = () => {
   // <Route path={'/decks/:deckId/study'}>
   //   <Study />
   // </Route>
-  // <Route path={'/decks/new'}>
-  //   <CreateDeck setDecks={setDecks} />
-  // </Route>
+
   return (
     <div>
       <Switch>
@@ -68,6 +66,9 @@ const Decks = () => {
           <DecksList />
         </Route>
 
+        <Route path={'/decks/new'}>
+          <CreateDeck />
+        </Route>
         <Route path={'/decks/:deckId/edit'}>
           <EditDeck />
         </Route>
