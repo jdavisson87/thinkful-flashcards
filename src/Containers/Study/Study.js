@@ -8,7 +8,7 @@ const Study = () => {
   const history = useHistory();
 
   const [frontShowing, isFrontShowing] = useState(true);
-  const [currentDeck, setCurrentDeck] = useState();
+  const [currentDeck, setCurrentDeck] = useState({});
   const [currentCard, setCurrentCard] = useState(0);
 
   useEffect(() => {

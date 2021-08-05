@@ -6,6 +6,7 @@ import { deleteCard } from '../../utils/api/index';
 const CardList = ({ cards = [] }) => {
   const { deckId } = useParams();
   const history = useHistory();
+
   const deleteCardHandler = async (cardId) => {
     if (window.confirm('Do you want to delete this card?')) {
       await deleteCard(cardId);
