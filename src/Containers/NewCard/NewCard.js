@@ -7,12 +7,12 @@ const NewCard = () => {
   const history = useHistory();
   const { deckId } = useParams();
   const defaultCard = {
-    id: '',
+    id: null,
     front: '',
     back: '',
     deckId: deckId,
   };
-  const [card, setCard] = useState({ defaultCard });
+  const [card, setCard] = useState({ ...defaultCard });
   const [deckName, setDeckName] = useState('');
 
   useEffect(() => {
@@ -32,6 +32,10 @@ const NewCard = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    if (card.front.trim() === '' || card.back.trim() === '') {
+      alert('Please enter a valid front and back for your card.');
+      return;
+    }
     await createCard(deckId, card);
     history.push(`/decks/${deckId}`);
   };

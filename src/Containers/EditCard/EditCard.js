@@ -39,6 +39,10 @@ const EditCard = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    if (card.front.trim() === '' || card.back.trim() === '') {
+      alert('Please enter a valid front and back for your card.');
+      return;
+    }
     updateCard(card);
     history.push(`/decks/${deckId}`);
   };
