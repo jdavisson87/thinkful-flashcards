@@ -10,7 +10,7 @@ const CreateDeck = () => {
     description: '',
   };
 
-  const [newDeck, setNewDeck] = useState(defaultCard);
+  const [newDeck, setNewDeck] = useState({ ...defaultCard });
 
   const changeHandler = ({ target }) => {
     setNewDeck({
@@ -21,6 +21,10 @@ const CreateDeck = () => {
 
   async function submitHandler(event) {
     event.preventDefault();
+    if (newDeck.name.trim() === '' || newDeck.description.trim() === '') {
+      alert('Please enter a valid name and description for your deck');
+      return null;
+    }
     try {
       const response = await createDeck(newDeck);
       history.push(`/decks/${response.id}`);

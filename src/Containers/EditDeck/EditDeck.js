@@ -11,7 +11,7 @@ const EditDeck = () => {
     name: '',
     description: '',
   };
-  const [currentDeck, setCurrentDeck] = useState(deckDefault);
+  const [currentDeck, setCurrentDeck] = useState({ ...deckDefault });
 
   useEffect(() => {
     async function getDeck() {
@@ -28,6 +28,13 @@ const EditDeck = () => {
 
   const submitHandler = (event, updatedDeck) => {
     event.preventDefault();
+    if (
+      currentDeck.name.trim() === '' ||
+      currentDeck.description.trim() === ''
+    ) {
+      alert('Please enter a valid name and description for your deck');
+      return null;
+    }
     updateDeck(updatedDeck);
     setCurrentDeck(updatedDeck);
     history.push(`/decks/${deckId}`);
