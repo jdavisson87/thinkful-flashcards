@@ -6,9 +6,13 @@ import StudyCard from '../../Components/StudyCard/StudyCard';
 const Study = () => {
   const { deckId } = useParams();
   const history = useHistory();
+  const defaultDeck = {
+    name: '',
+    cards: [],
+  };
 
   const [frontShowing, isFrontShowing] = useState(true);
-  const [currentDeck, setCurrentDeck] = useState({});
+  const [currentDeck, setCurrentDeck] = useState({ ...defaultDeck });
   const [currentCard, setCurrentCard] = useState(0);
 
   useEffect(() => {
