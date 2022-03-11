@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/thinkful-flashcards/static/js/main.bb9c6fbd.chunk.js",
-    "main.js.map": "/thinkful-flashcards/static/js/main.bb9c6fbd.chunk.js.map",
+    "main.js": "/thinkful-flashcards/static/js/main.c2b61c26.chunk.js",
+    "main.js.map": "/thinkful-flashcards/static/js/main.c2b61c26.chunk.js.map",
     "runtime-main.js": "/thinkful-flashcards/static/js/runtime-main.1f9b2364.js",
     "runtime-main.js.map": "/thinkful-flashcards/static/js/runtime-main.1f9b2364.js.map",
     "static/js/2.6defc33d.chunk.js": "/thinkful-flashcards/static/js/2.6defc33d.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.1f9b2364.js",
     "static/js/2.6defc33d.chunk.js",
-    "static/js/main.bb9c6fbd.chunk.js"
+    "static/js/main.c2b61c26.chunk.js"
   ]
 }
